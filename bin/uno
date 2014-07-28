@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+require 'docopt'
+
+PROGRAM_NAME = File.basename(__FILE__)
+USAGE = <<DOCOPT
+Check rules of Uno card game.
+
+Usage:
+  #{PROGRAM_NAME} [<file>]
+
+-h, --help  Show this message
+DOCOPT
+
+begin
+  opt = Docopt::docopt(USAGE)
+
+  input = if opt['<file>'].nil?
+            $stdin
+          else
+            File.open opt['<file>', 'r']
+          end
+  output = $stdout
+
+  require_relative '../lib/uno'
+  Uno::Checker.new(input, output).check_all
+
+rescue Docopt::Exit => e
+  puts e.message
+end
