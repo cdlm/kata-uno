@@ -1,0 +1,17 @@
+inherit_from:
+  - .rubocop_todo.yml
+
+Style/LineLength:
+  Max: 90
+
+Style/EmptyLinesAroundBody:
+  Enabled: false
+
+Style/Not:
+  Enabled: false
+
+Style/SingleLineMethods:
+  Enabled: false
+
+Style/EmptyLineBetweenDefs:
+  AllowAdjacentOneLineDefs: true

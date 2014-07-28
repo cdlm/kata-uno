@@ -2,8 +2,9 @@ source 'https://rubygems.org'
 
 gemspec
 
-group :test do
+group :development do
   gem 'rake'
+  gem 'rubocop'
   gem 'cucumber'
   gem 'aruba'
   gem 'guard-cucumber'
