@@ -13,7 +13,7 @@ Usage:
 DOCOPT
 
 begin
-  opt = Docopt::docopt(USAGE)
+  opt = Docopt.docopt(USAGE)
 
   input = if opt['<file>'].nil?
             $stdin
