@@ -23,7 +23,7 @@ begin
   output = $stdout
 
   require_relative '../lib/uno'
-  Uno::Checker.new(input, output).check_all
+  Uno::Checker.new(input, output).check
 
 rescue Docopt::Exit => e
   puts e.message
