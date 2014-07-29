@@ -5,6 +5,7 @@ gemspec
 group :development do
   gem 'rake'
   gem 'rubocop'
+  gem 'minitest'
   gem 'cucumber'
   gem 'aruba'
   gem 'guard-cucumber'
