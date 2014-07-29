@@ -4,11 +4,13 @@ gemspec
 
 group :development do
   gem 'rake'
+  gem 'rubygems-tasks'
+
   gem 'rubocop'
-  gem 'minitest'
-  gem 'cucumber'
-  gem 'aruba'
+
+  gem 'guard'
+  gem 'guard-minitest'
   gem 'guard-cucumber'
+  gem 'guard-rubocop'
   gem 'rb-fsevent' # Mac
-  gem 'syntax'
 end

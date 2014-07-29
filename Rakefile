@@ -17,3 +17,8 @@ require 'rubocop/rake_task'
 RuboCop::RakeTask.new(:rubocop) do |task|
   task.formatters = ['clang']
 end
+
+require 'rubygems/tasks'
+Gem::Tasks.new(push: false) do |tasks|
+  tasks.console.command = 'pry'
+end

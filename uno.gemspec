@@ -16,5 +16,9 @@ DESCRIPTION
   s.files       = Dir['lib/**/*.rb']
   s.executables << 'uno'
 
-  s.add_runtime_dependency 'docopt'
+  s.add_runtime_dependency 'docopt', '~> 0.5'
+
+  s.add_development_dependency 'minitest', '~> 5.0'
+  s.add_development_dependency 'cucumber', '~> 1.3'
+  s.add_development_dependency 'aruba', '~> 0.6'
 end
