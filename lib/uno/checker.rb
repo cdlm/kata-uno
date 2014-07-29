@@ -25,6 +25,14 @@ module Uno
     def check
       parse_preamble
       @lines.each do |line, index|
+        play = read_play line
+        @output.puts play
+        begin
+          @current_play.accept? play
+          play.update self # FIXME: refactor the game state out of this class
+        rescue UnoException => e
+          @output.puts "\# #{e}"
+        end
       end
     end
 
