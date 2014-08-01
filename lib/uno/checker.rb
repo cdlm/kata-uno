@@ -62,7 +62,7 @@ module Uno
     end
 
     def read_play(line)
-      line.match(/^\s*(#{CARD_RE}|draw)\s+(\w+)?/) do |match|
+      line.match(/^\s*(#{CARD_RE}|draw)(?:\s+(\w+))?/) do |match|
         value, color, player_name = match[2], match[3], match[4]
         player = player_name && @players.find { |p| p.name == player_name }
         # TODO: handle draw
