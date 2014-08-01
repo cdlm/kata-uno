@@ -18,7 +18,7 @@ begin
   input = if opt['<file>'].nil?
             $stdin
           else
-            File.open opt['<file>', 'r']
+            File.open opt['<file>'], 'r'
           end
   output = $stdout
 
