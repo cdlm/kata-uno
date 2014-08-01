@@ -17,7 +17,7 @@ end
 
 require 'cucumber/rake/task'
 Cucumber::Rake::Task.new do |t|
-  t.cucumber_opts = 'features --format pretty'
+  t.cucumber_opts = 'features --format pretty --strict'
 end
 
 require 'rubocop/rake_task'
