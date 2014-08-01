@@ -7,7 +7,7 @@ module Uno
       @value, @color, @player = value, color, player
     end
 
-    def to_s()  "#{value} #{color} #{player}"  end
+    def to_s()  "#{value} #{color} #{player}".strip  end
 
     def accept?(other)
       color == other.color || value == other.value
