@@ -25,49 +25,44 @@ module Uno
     def check
       parse_preamble
       @lines.each do |line, index|
-        play = read_play line
+        play = read_play line, index
         @output.puts play
-        begin
-          @current_play.accept? play
-          play.update self # FIXME: refactor the game state out of this class
-        rescue UnoException => e
-          @output.puts "\# #{e}"
-        end
+        play.update self # FIXME: refactor the game state out of this class
       end
     end
 
     def parse_preamble
-      @num_players = read_players_number @lines.next.first
+      @num_players = read_players_number(*@lines.next)
       @output.puts "#{@num_players} players"
 
       @num_players.times do
-        name = read_player_name @lines.next.first
+        name = read_player_name(*@lines.next)
         add_player name
       end
 
-      @current_play = read_play @lines.next.first
+      @current_play = read_play(*@lines.next)
       @output.puts @current_play
     end
 
-    def read_players_number(line)
+    def read_players_number(line, index)
       match = line.match(/^\s*(\d+) players\s*$/)
-      fail FormatError.new(input.lineno, line) if match.nil?
+      fail FormatError.new(index, line) if match.nil?
       match[1].to_i
     end
 
-    def read_player_name(line)
+    def read_player_name(line, index)
       match = line.match(/^\s*(\S+)\s*$/)
-      fail FormatError.new(input.lineno, line) if match.nil?
+      fail FormatError.new(index, line) if match.nil?
       match[1]
     end
 
-    def read_play(line)
-      line.match(/^\s*(#{CARD_RE}|draw)(?:\s+(\w+))?/) do |match|
-        value, color, player_name = match[2], match[3], match[4]
-        player = player_name && @players.find { |p| p.name == player_name }
-        # TODO: handle draw
-        Play.new(value, color, player)
-      end
+    def read_play(line, index)
+      match = line.match(/^\s*(#{CARD_RE}|draw)(?:\s+(\w+))?/)
+      fail FormatError.new(index, line) if match.nil?
+
+      value, color, player_name = match[2], match[3], match[4]
+      # TODO: handle draw
+      Play.new(value, color, player_name)
     end
 
   end

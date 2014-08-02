@@ -1,13 +1,13 @@
 module Uno
 
   class Play
-    attr_reader :value, :color, :player
+    attr_reader :value, :color, :player_name
 
-    def initialize(value, color, player)
-      @value, @color, @player = value, color, player
+    def initialize(value, color, player_name)
+      @value, @color, @player_name = value, color, player_name
     end
 
-    def to_s()  "#{value} #{color} #{player}".strip  end
+    def to_s()  "#{value} #{color} #{player_name}".strip  end
 
     def accept?(other)
       color == other.color || value == other.value

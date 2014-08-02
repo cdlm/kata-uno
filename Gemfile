@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gemspec
 
 group :development do
+  gem 'minitest', require: false
+
   gem 'rake'
   gem 'rubygems-tasks'
 
