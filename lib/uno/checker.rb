@@ -1,3 +1,4 @@
+require 'uno'
 require 'uno/player'
 require 'uno/play'
 
@@ -45,7 +46,7 @@ module Uno
     end
 
     def read_players_number(line, index)
-      match = line.match(/^\s*(\d+) players\s*$/)
+      match = line.match(/^\s*(\d+)\s+players\s*$/)
       fail FormatError.new(index, line) if match.nil?
       match[1].to_i
     end
