@@ -10,6 +10,7 @@ desc 'Run all quality checks'
 task quality: [:test, :features, :lint]
 
 require 'rake/clean'
+CLEAN.include 'coverage'
 
 require 'rake/testtask'
 Rake::TestTask.new do |t|
