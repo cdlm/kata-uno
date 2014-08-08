@@ -1,0 +1,36 @@
+require 'uno'
+
+module Uno
+
+  class Game
+    attr_accessor :players
+
+    def initialize
+      @players = []
+      @direction = 1
+      @current_play = nil
+    end
+
+    def add_player(player)
+      @players << player
+    end
+
+    def reverse_direction
+      @direction = -@direction
+    end
+
+    def play(play)
+      # TODO
+    end
+
+    def reveal(play)
+      fail unless play.reveal?
+      @current_play = play
+    end
+
+    def expected_player
+      @current_play.pick_next(@direction, @players)
+    end
+
+  end
+end
