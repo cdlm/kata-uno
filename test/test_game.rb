@@ -18,4 +18,10 @@ describe 'a new game of 3 players' do
     @game.reveal Uno::Play.new(7, 'red')
     @game.expected_player.must_be_same_as @a
   end
+
+  it 'should have a correct second player' do
+    @game.reveal Uno::Play.new(7, 'red')
+    @game.play Uno::Play.new(8, 'red', 'A')
+    @game.expected_player.must_be_same_as @b
+  end
 end

@@ -15,13 +15,14 @@ module Uno
       @players << player
     end
 
-
-    def play(play)
-      # TODO
-    end
-
     def reveal(play)
       fail unless play.reveal?
+      @current_play = play
+    end
+
+    def play(play)
+      fail unless @current_play.accept?(play)
+      play.update self
       @current_play = play
     end
 
