@@ -19,7 +19,8 @@ describe 'a new game of 3 players' do
   describe 'when the reveal is a number' do
 
     before do
-      @game.reveal Play.new(5, 'red')
+      @reveal_color = 'red'
+      @game.reveal Play.new(5, @reveal_color)
     end
 
     it 'should have a correct first player after reveal' do
@@ -27,26 +28,30 @@ describe 'a new game of 3 players' do
     end
 
     it 'should have a correct second player' do
-      @game.play Play.new(6, 'red', 'A')
+      @game.play Play.new(6, @reveal_color, 'A')
       @game.expected_player.must_be_same_as @b
     end
 
     it 'should come back to first player in 3 plays' do
-      @game.play Play.new(6, 'red', 'A')
-      @game.play Play.new(7, 'red', 'B')
-      @game.play Play.new(8, 'red', 'C')
+      @game.play Play.new(6, @reveal_color, 'A')
+      @game.play Play.new(7, @reveal_color, 'B')
+      @game.play Play.new(8, @reveal_color, 'C')
 
       @game.expected_player.must_be_same_as @a
     end
 
     it 'should reject an incorrect color' do
       incorrect_number = Play.new(1, 'green', 'A')
-      proc { @game.play incorrect_number }.must_raise WrongCard
+      proc do
+        @game.play incorrect_number
+      end.must_raise WrongCard
     end
 
     it 'should reject the incorrect players' do
-      ['B', 'C'].each do |incorrect_name|
-        proc { @game.play Play.new(1, 'red', incorrect_name) }.must_raise WrongPlayer
+      %w(B C).each do |incorrect_name|
+        proc do
+          @game.play Play.new(1, @reveal_color, incorrect_name)
+        end.must_raise WrongPlayer
       end
     end
   end
