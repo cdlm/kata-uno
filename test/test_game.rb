@@ -39,5 +39,15 @@ describe 'a new game of 3 players' do
       @game.expected_player.must_be_same_as @a
     end
 
+    it 'should reject an incorrect color' do
+      incorrect_number = Play.new(1, 'green', 'A')
+      proc { @game.play incorrect_number }.must_raise WrongCard
+    end
+
+    it 'should reject the incorrect players' do
+      ['B', 'C'].each do |incorrect_name|
+        proc { @game.play Play.new(1, 'red', incorrect_name) }.must_raise WrongPlayer
+      end
+    end
   end
 end

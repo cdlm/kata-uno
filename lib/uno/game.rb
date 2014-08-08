@@ -21,7 +21,8 @@ module Uno
     end
 
     def play(play)
-      fail unless @current_play.accept?(play)
+      fail WrongPlayer.new(play) unless play.from?(expected_player)
+      fail WrongCard.new(play) unless @current_play.accept?(play)
       play.update self
       @current_play = play
     end

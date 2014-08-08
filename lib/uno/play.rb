@@ -15,6 +15,10 @@ module Uno
       color == other.color || value == other.value
     end
 
+    def from?(player)
+      player_name == player.name
+    end
+
     def next_player(direction, players)
       return players.first if reveal?
       current = players.index { |p| p.name == player_name }
