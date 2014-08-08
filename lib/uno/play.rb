@@ -15,7 +15,7 @@ module Uno
       color == other.color || value == other.value
     end
 
-    def pick_next(direction, players)
+    def next_player(direction, players)
       return players.first if reveal?
       current = players.index { |p| p.name == player_name }
       (current + direction).modulo(players.size)

@@ -29,7 +29,7 @@ module Uno
     end
 
     def expected_player
-      @current_play.pick_next(@direction, @players)
+      @current_play.next_player @direction, @players
     end
 
   end
