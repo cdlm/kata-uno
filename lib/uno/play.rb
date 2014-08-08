@@ -3,7 +3,7 @@ module Uno
   class Play
     attr_reader :value, :color, :player_name
 
-    def initialize(value, color, player_name=nil)
+    def initialize(value, color, player_name = nil)
       @value, @color, @player_name = value, color, player_name
     end
 

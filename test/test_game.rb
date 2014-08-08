@@ -14,7 +14,7 @@ describe 'a new game of 3 players' do
     @game.add_player @c
   end
 
-  it 'should have a correct first player after first play' do
+  it 'should have a correct first player after reveal' do
     @game.reveal Uno::Play.new(7, 'red')
     @game.expected_player.must_be_same_as @a
   end

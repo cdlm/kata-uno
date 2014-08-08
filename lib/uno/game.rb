@@ -15,9 +15,6 @@ module Uno
       @players << player
     end
 
-    def reverse_direction
-      @direction = -@direction
-    end
 
     def play(play)
       # TODO
@@ -30,6 +27,10 @@ module Uno
 
     def expected_player
       @current_play.next_player @direction, @players
+    end
+
+    def reverse_direction
+      @direction = -@direction
     end
 
   end
