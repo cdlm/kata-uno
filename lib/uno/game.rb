@@ -1,4 +1,4 @@
-require 'uno'
+require 'uno/exceptions'
 
 module Uno
 

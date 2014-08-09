@@ -1,2 +1,2 @@
-require 'aruba/cucumber'
 require 'simplecov'
+require 'aruba/cucumber'

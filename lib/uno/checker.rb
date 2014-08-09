@@ -1,4 +1,4 @@
-require 'uno'
+require 'uno/exceptions'
 require 'uno/game'
 require 'uno/player'
 require 'uno/play'
