@@ -1,4 +1,5 @@
 require 'uno'
+require 'uno/game'
 require 'uno/player'
 require 'uno/play'
 
@@ -14,35 +15,43 @@ module Uno
     def initialize(input, output)
       @lines = input.each_line.with_index.lazy.reject { |line, _| line.match COMMENT_RE }
       @output = output
-      @players = []
-      @direction = 1
-    end
-
-    def add_player(name)
-      @players << Player.new(name)
-      @output.puts name
+      @game = Game.new
     end
 
     def check
-      parse_preamble
+      parse_players
+      parse_reveal
+      show_status
       @lines.each do |line, index|
         play = read_play line, index
-        @output.puts play
-        play.update self # FIXME: refactor the game state out of this class
+        echo play
+        play.update @game
+        show_status
       end
     end
 
-    def parse_preamble
-      @num_players = read_players_number(*@lines.next)
-      @output.puts "#{@num_players} players"
+    def show_status
+      annotate "#{@game.expected_player.name} to play"
+    end
 
-      @num_players.times do
+    def annotate(message)  @output.puts "# #{message}"  end
+    def echo(line)  @output.puts line  end
+
+    def parse_players
+      num_players = read_players_number(*@lines.next)
+      echo "#{num_players} players"
+
+      num_players.times do
         name = read_player_name(*@lines.next)
-        add_player name
+        @game.add_player Player.new(name)
+        echo name
       end
+    end
 
-      @current_play = read_play(*@lines.next)
-      @output.puts @current_play
+    def parse_reveal
+      reveal_play = read_play(*@lines.next)
+      echo reveal_play
+      @game.reveal reveal_play
     end
 
     def read_players_number(line, index)

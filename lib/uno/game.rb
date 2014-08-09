@@ -16,7 +16,7 @@ module Uno
     end
 
     def reveal(play)
-      fail unless play.reveal?
+      fail GameError.new(play) unless play.reveal?
       @current_play = play
     end
 

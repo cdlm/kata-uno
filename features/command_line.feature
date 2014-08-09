@@ -27,6 +27,7 @@ Feature: calling from the command line
         Bob
         Carol
         7 red
+        # Alice to play
 
         """
 
@@ -39,5 +40,6 @@ Feature: calling from the command line
         Bob
         Carol
         7 red
+        # Alice to play
 
         """
