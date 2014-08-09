@@ -26,7 +26,7 @@ CLEAN.include 'tmp/'
 
 require 'rubocop/rake_task'
 RuboCop::RakeTask.new do |task|
-  task.formatters = ['clang']
+  task.formatters = ['simple']
 end
 
 require 'rubygems/tasks'
