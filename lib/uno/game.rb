@@ -15,6 +15,7 @@ module Uno
 
     def reveal(play)
       fail GameError.new(play) unless play.reveal?
+      play.update self
       @current_play = play
     end
 
@@ -26,8 +27,11 @@ module Uno
     end
 
     def expected_player
-      return @players.first if @current_play.reveal?
-      current = @players.index { |p| @current_play.from? p }
+      current = if @current_play.reveal?
+                  { 1 => -1, -1 => 0 }[@direction]
+                else
+                  @players.index { |p| @current_play.from? p }
+                end
       following = (current + @direction * @current_play.increment).modulo(@players.size)
       @players[following]
     end

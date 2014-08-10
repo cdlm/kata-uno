@@ -28,5 +28,4 @@ module Uno
       end
     end
   end
-
 end
