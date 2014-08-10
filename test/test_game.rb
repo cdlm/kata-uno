@@ -65,9 +65,25 @@ describe 'a new game of 3 players' do
       @game.expected_player.must_be_same_as @c
     end
 
-    it 'should have a correct second player' do
+    it 'should continue with before-last player' do
       @game.play Play.new(7, 'red', 'C')
       @game.expected_player.must_be_same_as @b
+    end
+  end
+
+
+  describe 'when the reveal is a skip' do
+    before do
+      @game.reveal Play.new('skip', 'red')
+    end
+
+    it 'should start with player 2' do
+      @game.expected_player.must_be_same_as @b
+    end
+
+    it 'should continue with player 3' do
+      @game.play Play.new(7, 'red', 'B')
+      @game.expected_player.must_be_same_as @c
     end
   end
 end

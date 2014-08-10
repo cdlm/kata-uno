@@ -19,10 +19,11 @@ module Uno
       player_name == player.name
     end
 
-    def increment()  1  end
+    def increment()
+      if value == 'skip' then 2 else 1 end
+    end
 
     def update(game)
-      # TODO: should be redefined in subclasses
       case value
       when 'reverse' then game.reverse_direction
       end
