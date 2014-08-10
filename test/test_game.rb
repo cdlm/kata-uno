@@ -15,7 +15,6 @@ describe 'a new game of 3 players' do
     @game.add_player @c
   end
 
-
   describe 'when the reveal is a number' do
     before do
       @reveal_color = 'red'
@@ -55,7 +54,6 @@ describe 'a new game of 3 players' do
     end
   end
 
-
   describe 'when the reveal is a reverse' do
     before do
       @game.reveal Play.new('reverse', 'red')
@@ -70,7 +68,6 @@ describe 'a new game of 3 players' do
       @game.expected_player.must_be_same_as @b
     end
   end
-
 
   describe 'when the reveal is a skip' do
     before do

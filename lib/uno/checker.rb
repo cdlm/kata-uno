@@ -25,12 +25,16 @@ module Uno
       @lines.each do |line, index|
         play = read_play line, index
         echo play
-        play.update @game
+        @game.play(play)
         show_status
       end
     end
 
     def show_status
+      unless @game.reveal?
+        last = @game.last_player
+        annotate "#{last.name} #{last.hand} card#{last.hand > 1 ? 's' : ''} left"
+      end
       annotate "#{@game.expected_player.name} to play"
     end
 
