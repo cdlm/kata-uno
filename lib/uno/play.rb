@@ -19,15 +19,14 @@ module Uno
       player_name == player.name
     end
 
-    def next_player(direction, players)
-      return players.first if reveal?
-      current = players.index { |p| p.name == player_name }
-      following = (current + direction).modulo(players.size)
-      players[following]
-    end
+    def increment()  1  end
 
     def update(game)
       # TODO: should be redefined in subclasses
+      case value
+      when 'reverse' then game.reverse_direction
+      end
     end
   end
+
 end
