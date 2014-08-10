@@ -19,6 +19,7 @@ DESCRIPTION
   s.executables << 'uno'
 
   s.add_runtime_dependency 'docopt', '~> 0.5'
+  s.add_runtime_dependency 'abstract_method', '~> 1.2'
 
   s.add_development_dependency 'minitest', '~> 5.0'
   s.add_development_dependency 'minitest-reporters', '~> 1.0'

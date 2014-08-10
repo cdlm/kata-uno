@@ -75,8 +75,7 @@ module Uno
       fail FormatError.new(index, line) if match.nil?
 
       value, color, player_name = match[2], match[3], match[4]
-      # TODO: handle draw
-      Play.new(value, color, player_name)
+      Play.from(value, color, player_name)
     end
 
   end

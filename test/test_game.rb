@@ -18,7 +18,7 @@ describe 'a new game of 3 players' do
   describe 'when the reveal is a number' do
     before do
       @reveal_color = 'red'
-      @game.reveal Play.new(5, @reveal_color)
+      @game.reveal Play.from(5, @reveal_color)
     end
 
     it 'should start with player 1' do
@@ -26,20 +26,20 @@ describe 'a new game of 3 players' do
     end
 
     it 'should have a correct second player' do
-      @game.play Play.new(6, @reveal_color, 'A')
+      @game.play Play.from(6, @reveal_color, 'A')
       @game.expected_player.must_be_same_as @b
     end
 
     it 'should come back to first player in 3 plays' do
-      @game.play Play.new(6, @reveal_color, 'A')
-      @game.play Play.new(7, @reveal_color, 'B')
-      @game.play Play.new(8, @reveal_color, 'C')
+      @game.play Play.from(6, @reveal_color, 'A')
+      @game.play Play.from(7, @reveal_color, 'B')
+      @game.play Play.from(8, @reveal_color, 'C')
 
       @game.expected_player.must_be_same_as @a
     end
 
     it 'should reject an incorrect color' do
-      incorrect_number = Play.new(1, 'green', 'A')
+      incorrect_number = Play.from(1, 'green', 'A')
       proc do
         @game.play incorrect_number
       end.must_raise WrongCard
@@ -48,7 +48,7 @@ describe 'a new game of 3 players' do
     it 'should reject the incorrect players' do
       %w(B C).each do |incorrect_name|
         proc do
-          @game.play Play.new(1, @reveal_color, incorrect_name)
+          @game.play Play.from(1, @reveal_color, incorrect_name)
         end.must_raise WrongPlayer
       end
     end
@@ -56,7 +56,7 @@ describe 'a new game of 3 players' do
 
   describe 'when the reveal is a reverse' do
     before do
-      @game.reveal Play.new('reverse', 'red')
+      @game.reveal Play.from('reverse', 'red')
     end
 
     it 'should start with last player' do
@@ -64,14 +64,14 @@ describe 'a new game of 3 players' do
     end
 
     it 'should continue with before-last player' do
-      @game.play Play.new(7, 'red', 'C')
+      @game.play Play.from(7, 'red', 'C')
       @game.expected_player.must_be_same_as @b
     end
   end
 
   describe 'when the reveal is a skip' do
     before do
-      @game.reveal Play.new('skip', 'red')
+      @game.reveal Play.from('skip', 'red')
     end
 
     it 'should start with player 2' do
@@ -79,7 +79,7 @@ describe 'a new game of 3 players' do
     end
 
     it 'should continue with player 3' do
-      @game.play Play.new(7, 'red', 'B')
+      @game.play Play.from(7, 'red', 'B')
       @game.expected_player.must_be_same_as @c
     end
   end
