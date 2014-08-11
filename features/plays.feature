@@ -30,3 +30,23 @@ Feature: simple games with 3 players
     # Carol 6 cards left
     # Alice to play
     """
+
+  Scenario: detecting a wrong player
+    When I type "2 blue"
+    And I type "3 yellow Alice"
+    And I close the stdin stream
+    Then it should pass with:
+    """
+    3 yellow Alice
+    # wrong card
+    """
+
+  Scenario: detecting a wrong player
+    When I type "2 blue"
+    And I type "2 blue Bob"
+    And I close the stdin stream
+    Then it should pass with:
+    """
+    2 blue Bob
+    # wrong player
+    """

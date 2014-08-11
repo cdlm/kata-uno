@@ -19,15 +19,9 @@ module Uno
     end
 
     def check
-      parse_players
-      parse_reveal
-      show_status
-      @lines.each do |line, index|
-        play = read_play line, index
-        echo play
-        @game.play(play)
-        show_status
-      end
+      process_players
+      process_reveal
+      process_plays
     end
 
     def show_status
@@ -41,7 +35,7 @@ module Uno
     def annotate(message)  @output.puts "# #{message}"  end
     def echo(line)  @output.puts line  end
 
-    def parse_players
+    def process_players
       num_players = read_players_number(*@lines.next)
       echo "#{num_players} players"
 
@@ -52,10 +46,24 @@ module Uno
       end
     end
 
-    def parse_reveal
+    def process_reveal
       reveal_play = read_play(*@lines.next)
       echo reveal_play
       @game.reveal reveal_play
+      show_status
+    end
+
+    def process_plays
+      @lines.each do |line, index|
+        play = read_play line, index
+        echo play
+        begin
+          @game.play(play)
+        rescue GameError => e
+          annotate e.diagnostic
+        end
+        show_status
+      end
     end
 
     def read_players_number(line, index)
