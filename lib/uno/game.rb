@@ -26,7 +26,9 @@ module Uno
 
     def play(play)
       @involved = []
-      fail WrongPlayer.new(play) unless play.from?(expected_player)
+      unless play.from?(expected_player) || play.from?(@top_play.player)
+        fail WrongPlayer.new(play)
+      end
       fail WrongCard.new(play) unless play.accept?(@top_play)
       update play
     end
@@ -35,7 +37,7 @@ module Uno
       @current_player = play.player || @dealer
       @top_play = play.over(@top_play)
       play.pre_turn self
-      pass
+      pass unless @top_play.doublet?
       play.post_turn self
     end
     private :update

@@ -50,3 +50,18 @@ Feature: Simple games with 3 players
       2 blue Bob
       # wrong player
       """
+
+  Scenario: Accepting a double play
+    When I type "joker green"
+    And I type "1 green Alice"
+    And I type "1 green Alice"
+    And I close the stdin stream
+    Then it should pass with:
+      """
+      1 green Alice
+      # Alice 6 cards left
+      # Bob to play
+      1 green Alice
+      # Alice 5 cards left
+      # Bob to play
+      """

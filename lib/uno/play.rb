@@ -21,6 +21,7 @@ module Uno
 
     def reveal?()  player.nil?  end
     def from?(some_player)  player == some_player  end
+    def doublet?()  false  end
     def over(_)  self  end
 
     abstract_method :face, :accept?, :pre_turn
@@ -56,10 +57,20 @@ module Uno
     def initialize(value, color, player)
       super(color, player)
       @value = value
+      @twin = false
     end
 
     def accept?(other)
-      super || other.is_a?(NumberPlay) && value == other.value
+      super || # other.is_a?(NumberPlay) &&
+        value == other.value
+    end
+
+    def doublet?()  @twin  end # rubocop:disable Style/TrivialAccessors
+
+    def over(other)
+      return self if reveal? || other.doublet?
+      @twin = value == other.value && color == other.color && player == other.player
+      self
     end
   end
 
