@@ -31,7 +31,7 @@ Feature: simple games with 3 players
     # Alice to play
     """
 
-  Scenario: detecting a wrong player
+  Scenario: detecting an incorrect card by the correct player
     When I type "2 blue"
     And I type "3 yellow Alice"
     And I close the stdin stream

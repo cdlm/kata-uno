@@ -22,17 +22,16 @@ module Uno
 
     def reveal?()  player_name.nil?  end
     def from?(player)  player_name == player.name  end
-    def increment()  1  end
 
-    abstract_method :face, :accept?, :update
+    abstract_method :face, :accept?, :pre_turn
+    def post_turn(_)  end
   end
 
   class Draw < Play
     def face()  'draw'  end
     def accept?(_)  true  end
 
-    def update(game)
-    end
+    def pre_turn(game)  game.pick  end
   end
 
   class ColoredPlay < Play
@@ -47,7 +46,7 @@ module Uno
     abstract_method :value
 
     def accept?(other)  color == other.color  end
-    def update(game)  game.discard(self)  end
+    def pre_turn(game)  game.discard  end
   end
 
   class NumberPlay < ColoredPlay
@@ -66,19 +65,24 @@ module Uno
   class Reverse < ColoredPlay
     def value()  'reverse'  end
 
-    def update(game)
-      game.reverse_direction
+    def pre_turn(game)
       super(game)
+      game.reverse
     end
   end
 
   class Skip < ColoredPlay
     def value()  'skip'  end
-    def increment()  2  end
+    def post_turn(game)  game.pass  end
   end
 
   class PickTwo < ColoredPlay
     def value()  '+2'  end
+
+    def post_turn(game)
+      game.penalize 2
+      game.pass
+    end
   end
 
   class Joker < ColoredPlay
@@ -88,6 +92,10 @@ module Uno
 
   class SuperJoker < Joker
     def value()  '+4'  end
-  end
 
+    def post_turn(game)
+      game.penalize 4
+      game.pass
+    end
+  end
 end

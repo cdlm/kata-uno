@@ -25,9 +25,8 @@ module Uno
     end
 
     def show_status
-      unless @game.reveal?
-        last = @game.last_player
-        annotate "#{last.name} #{last.hand} card#{last.hand > 1 ? 's' : ''} left"
+      @game.involved.each do |p|
+        annotate "#{p.name} #{p.hand} card#{p.hand > 1 ? 's' : ''} left"
       end
       annotate "#{@game.expected_player.name} to play"
     end

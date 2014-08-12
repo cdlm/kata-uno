@@ -83,4 +83,18 @@ describe 'a new game of 3 players' do
       @game.expected_player.must_be_same_as @c
     end
   end
+
+  describe 'when the reveal is a +2' do
+    before do
+      @game.reveal Play.from('+2', 'red')
+    end
+
+    it 'should start with player 2' do
+      @game.expected_player.must_be_same_as @b
+    end
+
+    it 'should have made player 1 pick 2 cards' do
+      @a.hand.must_equal 9
+    end
+  end
 end
