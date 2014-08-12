@@ -7,7 +7,7 @@ Erin
 Frank
 7 red
 5 red Alice
-5 green Bob
+draw Bob
 +2 green Carol
 skip green Erin
 reverse green Alice

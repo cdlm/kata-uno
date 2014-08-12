@@ -17,13 +17,20 @@ describe 'the input file parser' do
     play.to_s.must_equal '7 red Carol'
   end
 
+  it 'should parse a draw' do
+    line = 'draw Bob'
+    play = @parser.read_play line, 42
+    play.player_name.must_equal 'Bob'
+    play.to_s.must_equal 'draw Bob'
+  end
+
   it 'should parse the number of players' do
     line = ' 3   players '
     n = @parser.read_players_number line, 42
     n.must_equal 3
   end
 
-  it 'should parse a player names' do
+  it 'should parse a player name' do
     line = ' Alice  '
     name = @parser.read_player_name line, 42
     name.must_equal 'Alice'

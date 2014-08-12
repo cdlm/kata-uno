@@ -78,11 +78,15 @@ module Uno
     end
 
     def read_play(line, index)
-      match = line.match(/^\s*(#{CARD_RE}|draw)(?:\s+(\w+))?/)
+      match = line.match(/^\s*(?:(draw)|#{CARD_RE})(?:\s+(\w+))?/)
       fail FormatError.new(index, line) if match.nil?
 
-      value, color, player_name = match[2], match[3], match[4]
-      Play.from(value, color, player_name)
+      draw, value, color, player_name = match[1], match[2], match[3], match[4]
+      if draw.nil?
+        Play.from value, color, player_name
+      else
+        Draw.new player_name
+      end
     end
 
   end

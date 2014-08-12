@@ -9,14 +9,14 @@ module Uno
       @players = []
       @involved = []
       @dealer = Player.new nil
-      @current_play = nil
+      @top_play = nil
     end
 
     def add_player(player)  @players << player  end
 
     def player(play)  @players.find { |p| play.from? p }  end
     def expected_player()  @players.first  end
-    def current_player()  player @current_play  end
+    def current_player()  player @top_play  end
 
     def reveal(play)
       fail GameError.new(play) unless play.reveal?
@@ -27,13 +27,13 @@ module Uno
 
     def play(play)
       fail WrongPlayer.new(play) unless play.from?(expected_player)
-      fail WrongCard.new(play) unless play.accept?(@current_play)
+      fail WrongCard.new(play) unless play.accept?(@top_play)
       update play
     end
 
     def update(play)
       @involved = []
-      @current_play = play
+      @top_play = play # FIXME: wrong in the case of a draw
       play.pre_turn self
       pass
       play.post_turn self

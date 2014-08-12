@@ -7,7 +7,6 @@ module Uno
 
     def self.from(value, color, name = nil) # rubocop:disable Style/CyclomaticComplexity
       case value
-      when 'draw' then Draw.new name
       when 'reverse' then Reverse.new color, name
       when 'skip' then Skip.new color, name
       when '+2' then PickTwo.new color, name
