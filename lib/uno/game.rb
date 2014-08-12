@@ -14,7 +14,7 @@ module Uno
 
     def add_player(player)  @players << player  end
 
-    def player(play)  @players.find { |p| play.from? p }  end
+    def player(name)  @players.find { |p| p.name == name }  end
     def expected_player()  @players.first  end
 
     def reveal(play)
@@ -32,7 +32,7 @@ module Uno
     end
 
     def update(play)
-      @current_player = player play
+      @current_player = play.player || @dealer
       @top_play = play.over(@top_play)
       play.pre_turn self
       pass

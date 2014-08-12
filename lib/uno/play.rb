@@ -3,24 +3,24 @@ require 'abstract_method'
 module Uno
 
   class Play
-    attr_reader :player_name
+    attr_reader :player
 
-    def self.from(value, color, name = nil) # rubocop:disable Style/CyclomaticComplexity
+    def self.from(value, color, player = nil) # rubocop:disable Style/CyclomaticComplexity
       case value
-      when 'reverse' then Reverse.new color, name
-      when 'skip' then Skip.new color, name
-      when '+2' then PickTwo.new color, name
-      when 'joker' then Joker.new color, name
-      when '+4' then SuperJoker.new color, name
-      else NumberPlay.new value, color, name
+      when 'reverse' then Reverse.new color, player
+      when 'skip' then Skip.new color, player
+      when '+2' then PickTwo.new color, player
+      when 'joker' then Joker.new color, player
+      when '+4' then SuperJoker.new color, player
+      else NumberPlay.new value, color, player
       end
     end
 
-    def initialize(name)  @player_name = name  end
-    def to_s()  "#{face} #{player_name}".strip  end
+    def initialize(player)  @player = player  end
+    def to_s()  "#{face} #{player}".strip  end
 
-    def reveal?()  player_name.nil?  end
-    def from?(player)  player_name == player.name  end
+    def reveal?()  player.nil?  end
+    def from?(some_player)  player == some_player  end
     def over(_)  self  end
 
     abstract_method :face, :accept?, :pre_turn
@@ -38,8 +38,8 @@ module Uno
   class ColoredPlay < Play
     attr_accessor :color
 
-    def initialize(color, name)
-      super(name)
+    def initialize(color, player)
+      super(player)
       @color = color
     end
 
@@ -53,8 +53,8 @@ module Uno
   class NumberPlay < ColoredPlay
     attr_reader :value
 
-    def initialize(value, color, name)
-      super(color, name)
+    def initialize(value, color, player)
+      super(color, player)
       @value = value
     end
 

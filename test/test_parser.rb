@@ -5,23 +5,26 @@ describe 'the input file parser' do
 
   before do
     input, output = '', nil
-    @parser = Uno::Checker.new input, output
+    @player = Player.new('Paul')
+    game = Game.new
+    game.add_player @player
+    @parser = Uno::Checker.new game, input, output
   end
 
   it 'should parse a number card' do
-    line = '7  red   Carol'
+    line = '7  red   Paul'
     play = @parser.read_play line, 42
     play.value.must_equal '7'
     play.color.must_equal 'red'
-    play.player_name.must_equal 'Carol'
-    play.to_s.must_equal '7 red Carol'
+    play.player.must_be_same_as @player
+    play.to_s.must_equal '7 red Paul'
   end
 
   it 'should parse a draw' do
-    line = 'draw Bob'
+    line = 'draw Paul'
     play = @parser.read_play line, 42
-    play.player_name.must_equal 'Bob'
-    play.to_s.must_equal 'draw Bob'
+    play.player.must_be_same_as @player
+    play.to_s.must_equal 'draw Paul'
   end
 
   it 'should parse the number of players' do
@@ -31,8 +34,8 @@ describe 'the input file parser' do
   end
 
   it 'should parse a player name' do
-    line = ' Alice  '
+    line = ' Paul  '
     name = @parser.read_player_name line, 42
-    name.must_equal 'Alice'
+    name.must_equal 'Paul'
   end
 end

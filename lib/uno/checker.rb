@@ -11,11 +11,11 @@ module Uno
   CARD_RE = /#{VALUE_RE}\s+#{COLOR_RE}/
 
   class Checker
+    attr_reader :game
 
-    def initialize(input, output)
+    def initialize(game, input, output)
+      @game, @output = game, output
       @lines = input.each_line.with_index.lazy.reject { |line, _| line.match COMMENT_RE }
-      @output = output
-      @game = Game.new
     end
 
     def check
@@ -82,10 +82,11 @@ module Uno
       fail FormatError.new(index, line) if match.nil?
 
       draw, value, color, player_name = match[1], match[2], match[3], match[4]
+      player = @game.player player_name
       if draw.nil?
-        Play.from value, color, player_name
+        Play.from value, color, player
       else
-        Draw.new player_name
+        Draw.new player
       end
     end
 

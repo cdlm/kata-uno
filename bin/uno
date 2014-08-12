@@ -22,8 +22,13 @@ begin
           end
   output = $stdout
 
-  require_relative '../lib/uno'
-  Uno::Checker.new(input, output).check
+  require 'uno'
+  require 'uno/game'
+  Uno::Checker.new(
+    Uno::Game.new,
+    input,
+    output
+  ).check
 
 rescue Docopt::Exit => e
   puts e.message

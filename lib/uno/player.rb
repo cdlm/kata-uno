@@ -8,6 +8,8 @@ module Uno
       @hand = 7
     end
 
+    def to_s()  name  end
+
     def discard()  @hand -= 1  end
     def pick(n = 1)  @hand += n  end
   end
