@@ -6,7 +6,7 @@ Dave
 Erin
 Frank
 7 red
-5 red Alice
+7 green Alice
 draw Bob
 +2 green Carol
 skip green Erin

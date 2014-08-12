@@ -3,7 +3,7 @@ require 'uno/exceptions'
 module Uno
 
   class Game
-    attr_reader :involved
+    attr_reader :involved, :current_player
 
     def initialize
       @players = []
@@ -16,7 +16,6 @@ module Uno
 
     def player(play)  @players.find { |p| play.from? p }  end
     def expected_player()  @players.first  end
-    def current_player()  player @top_play  end
 
     def reveal(play)
       fail GameError.new(play) unless play.reveal?
@@ -33,15 +32,13 @@ module Uno
 
     def update(play)
       @involved = []
-      @top_play = play # FIXME: wrong in the case of a draw
+      @current_player = player play
+      @top_play = play.over(@top_play)
       play.pre_turn self
       pass
       play.post_turn self
     end
-
-    def involve(player)
-      @involved << player unless player == @dealer
-    end
+    private :update
 
     def pass()  @players.rotate!  end
     def reverse()  @players.rotate!.reverse!  end
@@ -59,6 +56,12 @@ module Uno
     def discard
       current_player.discard
       involve current_player
+    end
+
+    private
+
+    def involve(player)
+      @involved << player unless player == @dealer
     end
   end
 end

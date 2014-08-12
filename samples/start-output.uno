@@ -7,7 +7,7 @@ Erin
 Frank
 7 red
 # Alice to play
-5 red Alice
+7 green Alice
 # Alice 6 cards left
 # Bob to play
 draw Bob
@@ -29,3 +29,4 @@ joker blue Frank
 +4 yellow Erin
 # Erin 5 cards left
 # Dave 13 cards left
+# Carol to play

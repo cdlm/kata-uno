@@ -10,8 +10,8 @@ module Uno
       when 'reverse' then Reverse.new color, name
       when 'skip' then Skip.new color, name
       when '+2' then PickTwo.new color, name
-      when 'joker' then Joker.new name, color
-      when '+4' then SuperJoker.new name, color
+      when 'joker' then Joker.new color, name
+      when '+4' then SuperJoker.new color, name
       else NumberPlay.new value, color, name
       end
     end
@@ -21,6 +21,7 @@ module Uno
 
     def reveal?()  player_name.nil?  end
     def from?(player)  player_name == player.name  end
+    def over(_)  self  end
 
     abstract_method :face, :accept?, :pre_turn
     def post_turn(_)  end
@@ -29,6 +30,7 @@ module Uno
   class Draw < Play
     def face()  'draw'  end
     def accept?(_)  true  end
+    def over(play)  play  end
 
     def pre_turn(game)  game.pick  end
   end
@@ -86,7 +88,7 @@ module Uno
 
   class Joker < ColoredPlay
     def value()  'joker'  end
-    def accept?()  true  end
+    def accept?(_)  true  end
   end
 
   class SuperJoker < Joker
