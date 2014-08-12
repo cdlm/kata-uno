@@ -51,7 +51,7 @@ Feature: Simple games with 3 players
       # wrong player
       """
 
-  Scenario: Accepting a double play
+  Scenario: Accepting a twin number
     When I type "joker green"
     And I type "1 green Alice"
     And I type "1 green Alice"
@@ -63,5 +63,50 @@ Feature: Simple games with 3 players
       # Bob to play
       1 green Alice
       # Alice 5 cards left
+      # Bob to play
+      """
+
+  Scenario: Rejecting a false twin number
+    When I type "joker green"
+    And I type "1 green Alice"
+    And I type "2 green Alice"
+    And I close the stdin stream
+    Then it should pass with:
+      """
+      1 green Alice
+      # Alice 6 cards left
+      # Bob to play
+      2 green Alice
+      # wrong player
+      # Bob to play
+      """
+
+  Scenario: Rejecting a twin reverse
+    When I type "joker green"
+    And I type "reverse green Alice"
+    And I type "reverse green Alice"
+    And I close the stdin stream
+    Then it should pass with:
+      """
+      reverse green Alice
+      # Alice 6 cards left
+      # Carol to play
+      reverse green Alice
+      # wrong player
+      # Carol to play
+      """
+
+  Scenario: Rejecting a twin draw
+    When I type "joker green"
+    And I type "draw Alice"
+    And I type "draw Alice"
+    And I close the stdin stream
+    Then it should pass with:
+      """
+      draw Alice
+      # Alice 8 cards left
+      # Bob to play
+      draw Alice
+      # wrong player
       # Bob to play
       """
