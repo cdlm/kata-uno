@@ -25,13 +25,13 @@ module Uno
     end
 
     def play(play)
+      @involved = []
       fail WrongPlayer.new(play) unless play.from?(expected_player)
       fail WrongCard.new(play) unless play.accept?(@top_play)
       update play
     end
 
     def update(play)
-      @involved = []
       @current_player = player play
       @top_play = play.over(@top_play)
       play.pre_turn self
