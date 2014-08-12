@@ -81,8 +81,8 @@ module Uno
       match = line.match(/^\s*(?:(draw)|#{CARD_RE})(?:\s+(\w+))?/)
       fail FormatError.new(index, line) if match.nil?
 
-      draw, value, color, player_name = match[1], match[2], match[3], match[4]
-      player = @game.player player_name
+      draw, value, color, name = match[1], match[2], match[3], match[4]
+      player = name.nil?  ?  @game.dealer  :  @game.player(name)
       if draw.nil?
         Play.from value, color, player
       else

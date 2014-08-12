@@ -5,7 +5,7 @@ module Uno
   class Play
     attr_reader :player
 
-    def self.from(value, color, player = nil) # rubocop:disable Style/CyclomaticComplexity
+    def self.from(value, color, player) # rubocop:disable Style/CyclomaticComplexity
       case value
       when 'reverse' then Reverse.new color, player
       when 'skip' then Skip.new color, player
@@ -19,13 +19,14 @@ module Uno
     def initialize(player)  @player = player  end
     def to_s()  "#{face} #{player}".strip  end
 
-    def reveal?()  player.nil?  end
+    def reveal?()  player.dealer?  end
     def from?(some_player)  player == some_player  end
-    def doublet?()  false  end
+    def twin?()  false  end
     def over(_)  self  end
 
     abstract_method :face, :accept?, :pre_turn
     def post_turn(_)  end
+    def check_twin(_)  end
   end
 
   class Draw < Play
@@ -47,7 +48,7 @@ module Uno
     def face()  "#{value} #{color}"  end
     abstract_method :value
 
-    def accept?(other)  color == other.color  end
+    def accept?(other)  other.nil? || color == other.color  end
     def pre_turn(game)  game.discard  end
   end
 
@@ -60,18 +61,15 @@ module Uno
       @twin = false
     end
 
-    def accept?(other)
-      super || # other.is_a?(NumberPlay) &&
-        value == other.value
+    def check_twin(other)
+      @twin = !reveal? && !other.twin? &&
+        player == other.player &&
+        value == other.value &&
+        color == other.color
     end
 
-    def doublet?()  @twin  end # rubocop:disable Style/TrivialAccessors
-
-    def over(other)
-      return self if reveal? || other.doublet?
-      @twin = value == other.value && color == other.color && player == other.player
-      self
-    end
+    def accept?(other)  super || value == other.value  end
+    def twin?()  @twin  end # rubocop:disable Style/TrivialAccessors
   end
 
   class Reverse < ColoredPlay

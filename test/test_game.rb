@@ -18,7 +18,7 @@ describe 'a new game of 3 players' do
   describe 'when the reveal is a number' do
     before do
       @reveal_color = 'red'
-      @game.reveal Play.from(5, @reveal_color)
+      @game.reveal Play.from(5, @reveal_color, Player.dealer)
     end
 
     it 'should start with player 1' do
@@ -56,7 +56,7 @@ describe 'a new game of 3 players' do
 
   describe 'when the reveal is a reverse' do
     before do
-      @game.reveal Play.from('reverse', 'red')
+      @game.reveal Play.from('reverse', 'red', Player.dealer)
     end
 
     it 'should start with last player' do
@@ -71,7 +71,7 @@ describe 'a new game of 3 players' do
 
   describe 'when the reveal is a skip' do
     before do
-      @game.reveal Play.from('skip', 'red')
+      @game.reveal Play.from('skip', 'red', Player.dealer)
     end
 
     it 'should start with player 2' do
@@ -86,7 +86,7 @@ describe 'a new game of 3 players' do
 
   describe 'when the reveal is a +2' do
     before do
-      @game.reveal Play.from('+2', 'red')
+      @game.reveal Play.from('+2', 'red', Player.dealer)
     end
 
     it 'should start with player 2' do

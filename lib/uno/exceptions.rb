@@ -11,6 +11,11 @@ module Uno
     def initialize(play)  @play = play  end
   end
 
+  class UnknownPlayer < StandardError
+    attr_reader :name
+    def initialize(name)  @name = name  end
+  end
+
   class WrongCard < GameError
     def diagnostic()  'wrong card'  end
   end
