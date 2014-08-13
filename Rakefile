@@ -49,6 +49,7 @@ task zip: [:features, file('uno-samples.zip')]
 file 'uno-samples.zip' => :samples do |t|
   sh "zip --recurse-paths #{t.name} #{SAMPLES_DIR} --exclude '*.DS_Store'"
 end
+CLEAN.include 'uno-samples.zip'
 
 def out_file(file)  file.sub(/\.(in\.)?uno$/, '.out.uno')  end
 def diff_file(file)  file.sub(/\.(in\.)?uno$/, '.uno.diff')  end
