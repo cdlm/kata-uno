@@ -4,3 +4,4 @@ tmp
 coverage
 *.out.uno
 *.uno.diff
+uno-samples.zip

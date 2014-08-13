@@ -5,7 +5,10 @@ Carol
 7 green
 
 3 green Alice
+# Alice played her first card, so it's Bob's turn
+# however, she can still play a double
 3 green Alice
+# and it's still Bob's turn, as expected
 3 red Bob
 2 red Carol
 
@@ -19,5 +22,5 @@ Carol
 1 red Bob
 0 red Carol
 
-# Alice is the first to discard her last card
+# Alice is the first to discard her last card, she wins
 0 green Alice

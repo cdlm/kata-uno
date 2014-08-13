@@ -39,11 +39,19 @@ CLEAN.include 'pkg/'
 #
 SAMPLES_DIR = 'samples'
 SAMPLES = FileList[File.join SAMPLES_DIR, '**/*.in.uno']
-def out_file(file)  file.sub(/\.(in\.)?uno$/, '.out.uno')  end
-def diff_file(file)  file.sub(/\.(in\.)?uno$/, '.uno.diff')  end
 
 desc 'Generate reference output & diffs from samples'
 multitask :samples
+
+desc 'Archive the generated samples'
+task zip: [:features, file('uno-samples.zip')]
+
+file 'uno-samples.zip' => :samples do |t|
+  sh "zip --recurse-paths #{t.name} #{SAMPLES_DIR} --exclude '*.DS_Store'"
+end
+
+def out_file(file)  file.sub(/\.(in\.)?uno$/, '.out.uno')  end
+def diff_file(file)  file.sub(/\.(in\.)?uno$/, '.uno.diff')  end
 
 SAMPLES.each do |uno|
   out, diff = out_file(uno), diff_file(uno)
