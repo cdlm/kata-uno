@@ -20,13 +20,12 @@ draw Bob
 skip green Erin
 # Erin 6 cards left
 # Alice to play
+2 green Frank
+# wrong player
+# Alice to play
 reverse green Alice
 # Alice 5 cards left
 # Frank to play
-joker blue Frank
-# Frank 6 cards left
-# Erin to play
-+4 yellow Erin
-# Erin 5 cards left
-# Dave 13 cards left
-# Carol to play
+2 blue Frank
+# wrong card
+# Frank to play

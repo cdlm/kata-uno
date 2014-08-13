@@ -10,6 +10,6 @@ Frank
 draw Bob
 +2 green Carol
 skip green Erin
+2 green Frank
 reverse green Alice
-joker blue Frank
-+4 yellow Erin
+2 blue Frank
