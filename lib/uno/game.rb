@@ -38,7 +38,7 @@ module Uno
       @current_player = play.player
       @top_play = play.over(@top_play)
       play.pre_turn self
-      pass unless @top_play.twin?
+      pass unless play.twin?
       play.post_turn self
     end
 

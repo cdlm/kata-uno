@@ -48,7 +48,7 @@ module Uno
         begin
           @game.play(play)
         rescue GameError => e
-          annotate e.diagnostic
+          annotate e.message
         end
         show_status
         break if @game.winner?
@@ -87,12 +87,10 @@ module Uno
 
       draw, value, color, name = match[1], match[2], match[3], match[4]
       player = name.nil?  ?  @game.dealer  :  @game.player(name)
-      if draw.nil?
-        Play.from value, color, player
-      else
-        Draw.new player
-      end
+      return Draw.new player unless draw.nil?
+      Play.from value, color, player
+    rescue UnknownPlayer => e
+      raise FormatError.new index, e.message
     end
-
   end
 end

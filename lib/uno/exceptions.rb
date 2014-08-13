@@ -1,26 +1,30 @@
 module Uno
 
   class FormatError < StandardError
-    attr_reader :lineno, :line
-    def initialize(lineno, line)  @lineno, @line = lineno, line  end
-    def to_s()  "#{lineno}: format error\n#{line}"  end
+    attr_reader :lineno, :text
+    def initialize(lineno, text)  @lineno, @text = lineno, text  end
+    def to_s()  "format error line #{lineno}: \"#{text.chomp}\""  end
   end
 
-  class GameError < StandardError
-    attr_reader :play
-    def initialize(play)  @play = play  end
-  end
+  class GameError < StandardError; end
 
-  class UnknownPlayer < StandardError
+  class UnknownPlayer < GameError
     attr_reader :name
     def initialize(name)  @name = name  end
+    def to_s()  "unknown player \"#{name}\""  end
+  end
+
+  class WrongPlay
+    attr_reader :play
+    def initialize(play)  @play = play  end
+    def to_s()  "wrong play \"#{play}\""  end
   end
 
   class WrongCard < GameError
-    def diagnostic()  'wrong card'  end
+    def to_s()  'wrong card'  end
   end
 
   class WrongPlayer < GameError
-    def diagnostic()  'wrong player'  end
+    def to_s()  'wrong player'  end
   end
 end

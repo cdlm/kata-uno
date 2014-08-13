@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'docopt'
-
 PROGRAM_NAME = File.basename(__FILE__)
 USAGE = <<DOCOPT
 Check rules of Uno card game.
@@ -11,6 +9,11 @@ Usage:
 
 -h, --help  Show this message
 DOCOPT
+
+require 'docopt'
+require 'uno'
+require 'uno/game'
+require 'uno/exceptions'
 
 begin
   opt = Docopt.docopt(USAGE)
@@ -22,14 +25,14 @@ begin
           end
   output = $stdout
 
-  require 'uno'
-  require 'uno/game'
   Uno::Checker.new(
     Uno::Game.new,
     input,
     output
   ).check
 
+rescue Uno::FormatError => e
+  output.puts e.message
 rescue Docopt::Exit => e
   puts e.message
 end
