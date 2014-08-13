@@ -1,5 +1,22 @@
 Feature: Demonstrating wrong plays
 
+  Scenario: Draw is invalid as a reveal
+    Given I run `uno` interactively
+    And I type:
+      """
+      3 players
+      Alice
+      Bob
+      Carol
+      draw
+      """
+    And I close the stdin stream
+    Then it should pass with:
+      """
+      draw
+      # wrong play
+      """
+
   Scenario: Playing mistakes are reported but have no effect on the game
     Given I run `uno` interactively
     And I type:

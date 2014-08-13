@@ -31,6 +31,7 @@ module Uno
 
   class Draw < Play
     def face()  'draw'  end
+    def reveal?()  false  end
     def accept?(_)  true  end
     def over(play)  play  end
 

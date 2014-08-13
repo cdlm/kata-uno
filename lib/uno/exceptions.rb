@@ -14,7 +14,7 @@ module Uno
     def to_s()  "unknown player \"#{name}\""  end
   end
 
-  class WrongPlay
+  class WrongPlay < GameError
     attr_reader :play
     def initialize(play)  @play = play  end
     def to_s()  "wrong play \"#{play}\""  end

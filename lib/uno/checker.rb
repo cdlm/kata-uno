@@ -20,7 +20,6 @@ module Uno
 
     def check
       process_players
-      process_reveal
       process_plays
     end
 
@@ -33,13 +32,6 @@ module Uno
         @game.add_player Player.new(name)
         echo name
       end
-    end
-
-    def process_reveal
-      reveal_play = read_play(*@lines.next)
-      echo reveal_play
-      @game.reveal reveal_play
-      show_status
     end
 
     def process_plays

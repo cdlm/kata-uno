@@ -25,14 +25,22 @@ module Uno
     def winner?()  !winner.nil?  end
     def winner()  @players.find { |p| p.hand <= 0 }  end
 
-    def reveal(play)
-      fail GameError.new(play) unless play.reveal?
+    def play(play)
+      if @top_play.nil?
+        reveal_play play
+      else
+        turn_play play
+      end
+    end
+
+    def reveal_play(play)
+      fail WrongPlay.new(play) unless play.reveal?
       @players.unshift @dealer
-      play play
+      turn_play play
       @players.delete @dealer
     end
 
-    def play(play)
+    def turn_play(play)
       @involved = []
       validate(play)
       @current_player = play.player
