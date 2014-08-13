@@ -5,7 +5,7 @@ require 'uno/play'
 
 module Uno
 
-  COMMENT_RE = /^\s*(\#.*)$/
+  COMMENT_RE = /^\s*(\#.*)?$/
   VALUE_RE = /(\d|\+2|skip|reverse|joker|\+4)/
   COLOR_RE = /(red|green|blue|yellow)/
   CARD_RE = /#{VALUE_RE}\s+#{COLOR_RE}/
