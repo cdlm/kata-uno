@@ -2,3 +2,5 @@
 Gemfile.lock
 tmp
 coverage
+*.out.uno
+*.uno.diff
