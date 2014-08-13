@@ -14,7 +14,7 @@ Feature: Demonstrating wrong plays
     Then it should pass with:
       """
       draw
-      # wrong play
+      !!! format error
       """
 
   Scenario: Playing mistakes are reported but have no effect on the game

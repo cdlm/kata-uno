@@ -34,7 +34,7 @@ module Uno
     end
 
     def reveal_play(play)
-      fail WrongPlay.new(play) unless play.reveal?
+      fail IllegalReveal.new(play) unless play.reveal?
       @players.unshift @dealer
       turn_play play
       @players.delete @dealer

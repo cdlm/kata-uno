@@ -18,8 +18,9 @@ describe 'a new game of 3 players' do
   it 'should reject draw as a reveal' do
     proc do
       @game.play Draw.new(Player.dealer)
-    end.must_raise WrongPlay
+    end.must_raise IllegalReveal
   end
+
   describe 'when the reveal is a number' do
     before do
       @reveal_color = 'red'

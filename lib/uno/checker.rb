@@ -39,8 +39,8 @@ module Uno
         echo play = read_play(line, index)
         begin
           @game.play(play)
-        rescue GameError => e
-          annotate e.message
+        rescue IllegalReveal => e; raise FormatError.new index, e.message
+        rescue GameError => e; annotate e.message
         end
         show_status
         break if @game.winner?

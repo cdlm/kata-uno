@@ -3,7 +3,13 @@ module Uno
   class FormatError < StandardError
     attr_reader :lineno, :text
     def initialize(lineno, text)  @lineno, @text = lineno, text  end
-    def to_s()  "format error line #{lineno}: \"#{text.chomp}\""  end
+    def to_s()  "!!! format error line #{lineno}: \"#{text.chomp}\""  end
+  end
+
+  class IllegalReveal < StandardError
+    attr_reader :play
+    def initialize(play)  @play = play  end
+    def to_s()  @play.to_s  end
   end
 
   class GameError < StandardError; end
@@ -12,12 +18,6 @@ module Uno
     attr_reader :name
     def initialize(name)  @name = name  end
     def to_s()  "unknown player \"#{name}\""  end
-  end
-
-  class WrongPlay < GameError
-    attr_reader :play
-    def initialize(play)  @play = play  end
-    def to_s()  "wrong play \"#{play}\""  end
   end
 
   class WrongCard < GameError
