@@ -110,3 +110,28 @@ Feature: Simple games with 3 players
       # wrong player
       # Bob to play
       """
+
+  Scenario: Alice wins quickly
+    When I type:
+      """
+      joker green
+      3 green Alice
+      3 green Alice
+      9 green Bob
+      8 green Carol
+      2 green Alice
+      2 green Alice
+      7 green Bob
+      6 green Carol
+      1 green Alice
+      1 green Alice
+      5 green Bob
+      4 green Carol
+      0 green Alice
+      """
+    Then it should pass with:
+      """
+      0 green Alice
+      # Alice 0 card left
+      # Alice wins
+      """

@@ -24,16 +24,6 @@ module Uno
       process_plays
     end
 
-    def show_status
-      @game.involved.each do |p|
-        annotate "#{p.name} #{p.hand} card#{p.hand > 1 ? 's' : ''} left"
-      end
-      annotate "#{@game.expected_player.name} to play"
-    end
-
-    def annotate(message)  @output.puts "# #{message}"  end
-    def echo(line)  @output.puts line  end
-
     def process_players
       num_players = read_players_number(*@lines.next)
       echo "#{num_players} players"
@@ -54,16 +44,30 @@ module Uno
 
     def process_plays
       @lines.each do |line, index|
-        play = read_play line, index
-        echo play
+        echo play = read_play(line, index)
         begin
           @game.play(play)
         rescue GameError => e
           annotate e.diagnostic
         end
         show_status
+        break if @game.winner?
       end
     end
+
+    def show_status
+      @game.involved.each do |p|
+        annotate "#{p.name} #{p.hand} card#{p.hand > 1 ? 's' : ''} left"
+      end
+      if @game.winner?
+        annotate "#{@game.winner} wins"
+      else
+        annotate "#{@game.expected_player.name} to play"
+      end
+    end
+
+    def annotate(message)  @output.puts "# #{message}"  end
+    def echo(line)  @output.puts line  end
 
     def read_players_number(line, index)
       match = line.match(/^\s*(\d+)\s+players\s*$/)

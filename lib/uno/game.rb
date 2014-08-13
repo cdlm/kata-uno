@@ -22,6 +22,9 @@ module Uno
 
     def expected_player()  @players.first  end
 
+    def winner?()  !winner.nil?  end
+    def winner()  @players.find { |p| p.hand <= 0 }  end
+
     def reveal(play)
       fail GameError.new(play) unless play.reveal?
       @players.unshift @dealer
