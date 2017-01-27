@@ -1,4 +1,4 @@
-task default: :quality
+task default: :features
 
 desc 'Run unit & behavior tests'
 task features: [:test, :cucumber]
