@@ -3,6 +3,8 @@
 A simple little reference implementation for a programming assignment.
 The problem statement follows (in french).
 
+[![Build Status](https://travis-ci.org/cdlm/kata-uno.svg?branch=master)](https://travis-ci.org/cdlm/kata-uno)
+
  - - -
 
 # Un arbitre pour le jeu Uno
