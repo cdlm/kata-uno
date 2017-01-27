@@ -1,4 +1,4 @@
-# Uno rules checker
+# Uno rules checker, in Ruby
 
 A simple little reference implementation for a programming assignment.
 The problem statement follows (in french).
